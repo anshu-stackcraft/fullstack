@@ -25,27 +25,29 @@ export default function FourImagesFullWidth() {
   ];
 
   return (
-    <div className="w-full min-h-screen">
-      {/* Full width background images with text overlay */}
-      <div className="grid grid-cols-1 w-full">
-        {images.map((item, index) => (
-          <div
-            key={index}
-            className="relative w-full h-[250px] sm:h-[300px] lg:h-screen bg-cover bg-center"
-            style={{ backgroundImage: `url(${item.url})` }}
-          >
-            {/* overlay */}
-            <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center p-4">
-              <h2 className="text-2xl lg:text-3xl font-bold mb-2">
+    <div className="w-full">
+      {images.map((item, index) => (
+        <div
+          key={index}
+          className="relative w-full h-screen bg-cover bg-center"
+          style={{ backgroundImage: `url(${item.url})` }}
+        >
+          {/* DARK OVERLAY */}
+          <div className="absolute inset-0 bg-black/60 z-10"></div>
+
+          {/* TEXT */}
+          <div className="absolute inset-0 z-20 flex items-center justify-center text-white">
+            <div className="text-center px-4">
+              <h2 className="text-4xl font-bold mb-2">
                 {item.title}
               </h2>
-              <p className="text-sm lg:text-base opacity-90">
+              <p className="text-lg">
                 {item.desc}
               </p>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
