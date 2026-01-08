@@ -1,26 +1,40 @@
-from rest_framework import viewsets, permissions
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from .models import Category, Product, Order
-from .serializers import CategorySerializer, ProductSerializer, OrderSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Product, Category
+from .serializers import ProductSerializer, CategorySerializer
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+@api_view(['GET'])
+def get_products(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(
+        products,
+        many=True,
+        context={'request': request}
+    )
+    return Response(serializer.data)
 
 
-class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+@api_view(['GET'])
+def get_product(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(
+            {'error': 'Product not found'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    serializer = ProductSerializer(
+        product,
+        context={'request': request}
+    )
+    return Response(serializer.data)
 
 
-class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()  
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+@api_view(['GET'])
+def get_categories(request):
+    categories = Category.objects.all()
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)

@@ -1,51 +1,10 @@
-import React from "react";
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import ProductList from "./components/ProductList";
+import ProductDetails from "./components/ProductDetails"
 
-export default function FourImagesFullWidth() {
-  const images = [
-    {
-      url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-      title: "Nature",
-      desc: "Beautiful view",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
-      title: "Mountains",
-      desc: "Peace & calm",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1500534623283-312aade485b7",
-      title: "Forest",
-      desc: "Green world",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
-      title: "Adventure",
-      desc: "Feel the journey",
-    },
-  ];
 
-  return (
-    <div className="w-full min-h-screen">
-      {/* Full width background images with text overlay */}
-      <div className="grid grid-cols-1 w-full">
-        {images.map((item, index) => (
-          <div
-            key={index}
-            className="relative w-full h-[250px] sm:h-[300px] lg:h-screen bg-cover bg-center"
-            style={{ backgroundImage: `url(${item.url})` }}
-          >
-            {/* overlay */}
-            <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center p-4">
-              <h2 className="text-2xl lg:text-3xl font-bold mb-2">
-                {item.title}
-              </h2>
-              <p className="text-sm lg:text-base opacity-90">
-                {item.desc}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+function App() {
+  return <ProductList />;
 }
+
+export default App;
