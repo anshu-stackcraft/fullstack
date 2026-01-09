@@ -38,7 +38,7 @@ function ProductDetails() {
         <div className="min-h-screen bg-gray-100 flex justify-center items-center py-10">
             <div className="bg-white shadow-lg rounded-2xl p-8 max-w-3xl w-full">
                 <div className="flex flex-col md:flex-row gap-8">
-                    <img src={`${BASEURL}${product.image}`}
+                    <img src={`${product.image}`}
                      alt={product.name}
                      className="w-full md:w-1/2 h-auto object-cover rounded-lg" />
                      <div className="flex-1">
