@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Category, Product, UserProfile, Order, OrderItem
+from .models import Category, Product, UserProfile, Order, OrderItem, Cart, CartItem,
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -74,3 +74,23 @@ class OrderSerializer(serializers.ModelSerializer):
         order.total_amount = total
         order.save()
         return order
+class CartItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.name', read_only=True)
+    product_price = serializers.DecimalField(
+        source='product.price',
+        max_digits=10,
+        decimal_places=2,
+        read_only=True
+    )
+    product_image = serializers.ImageField(source='product.image', read_only=True)
+
+    class Meta:
+        model = CartItem
+        fields = [
+            'id',
+            'product',
+            'product_name',
+            'product_price',
+            'product_image',
+            'quantity'
+        ]
