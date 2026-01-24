@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
 
   const imageUrl = product.image
     ? product.image.startsWith("http")
@@ -9,27 +10,32 @@ function ProductCard({ product }) {
     : "https://via.placeholder.com/300x200?text=No+Image";
 
   return (
-    <div className="bg-white shadow rounded-xl p-4">
+    <div
+      onClick={() => navigate(`/product/${product.id}`)}
+      className="bg-white shadow-md rounded-2xl overflow-hidden cursor-pointer
+                 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    >
       <img
         src={imageUrl}
         alt={product.name}
-        className="h-40 w-full object-cover rounded"
+        className="h-44 w-full object-cover"
       />
 
-      <h2 className="text-lg font-semibold mt-2">
-        {product.name}
-      </h2>
+      <div className="p-4">
+        <h2 className="text-lg font-semibold text-gray-800 truncate">
+          {product.name}
+        </h2>
 
-      <p className="text-green-600 font-bold">
-        ₹{product.price}
-      </p>
+        <p className="text-green-600 font-bold text-lg mt-1">
+          ₹{product.price}
+        </p>
 
-      <Link
-        to={`/product/${product.id}`}
-        className="inline-block mt-3 text-blue-600 hover:underline"
-      >
-        View Details
-      </Link>
+        <div className="mt-3 flex justify-end">
+          <span className="text-blue-600 text-sm font-medium">
+            View Details →
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

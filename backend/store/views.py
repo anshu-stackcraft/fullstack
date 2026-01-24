@@ -87,3 +87,4 @@ def remove_from_cart(request):
         {'message': 'Item removed from cart'},
         status=status.HTTP_200_OK
     )
+
